@@ -10,7 +10,9 @@
     margin: 0;
 }
 
-html,
+html {
+    min-height: 100%;
+}
 body {
     height: 100%;
 }
@@ -53,21 +55,19 @@ h6 {
 /* Site CSS Code */
 
 /* Global Styles */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    line-height: 1.5;
     color: #333;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    background-image: url('img/bg1.svg');
-    background-repeat: no-repeat;
-    background-position: 70% 32%;
-    background-size: 150% auto;
-}
+    background: linear-gradient(128.16deg, rgba(222, 160, 160, 0.85) -3.04%, rgba(222, 160, 160, 0) 57.36%) no-repeat;
+    /* background: url('img/bg6.svg') no-repeat center center; */
+    background-size: auto 600vh;   
+}   
 
 a {
     text-decoration: none;
@@ -117,7 +117,7 @@ nav a:hover {
 
 /* Hero Section */
 .hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('hero-background.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -162,8 +162,10 @@ nav a:hover {
 #about {
     display: flex;
     flex-direction: column;
-    padding: 3rem 0;
+    padding-top: 10rem;
     text-align: center;
+    scroll-margin-top: 72px;
+    height: 100vh;  
 }
 
 #about img {
@@ -229,8 +231,11 @@ nav a:hover {
 
 /* Portfolio Section */
 #portfolio {
-    padding: 3rem 0;
-    background-color: #f4f4f4;
+    padding-top: 5rem;
+    /* background-color: rgba(244, 244, 244, 0.3); */
+    background-color: rgba(0, 0, 0, 0.3);
+    scroll-margin-top: 72px;
+    height: 100vh;
 }
 
 #portfolio h2 {
@@ -238,12 +243,14 @@ nav a:hover {
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 2rem;
+    color: #fff;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    grid-template-rows: 1fr 1fr;
+    gap: 4rem;
     justify-items: center;
 }
 
@@ -252,11 +259,14 @@ nav a:hover {
     border-radius: 3px;
     overflow: hidden;
     max-width: 400px;
+    height: 300px;
     transition: transform 0.3s;
+    padding: 2rem 1rem;
 }
 
 .project-card:hover {
     transform: scale(1.05);
+    background-color: rgba(244, 244, 244, 0.3);
 }
 
 .project-card img {
@@ -277,7 +287,9 @@ nav a:hover {
 
 /* Contact Section */
 #contact {
-    padding: 3rem 0;
+    padding-top: 9rem;
+    scroll-margin-top: 72px;
+    height: 87vh;
 }
 
 #contact h2 {
