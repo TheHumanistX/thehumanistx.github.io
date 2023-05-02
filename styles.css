@@ -55,6 +55,22 @@ h6 {
 /* Site CSS Code */
 
 /* Global Styles */
+.bold {
+    font-weight: 700;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.white {
+    color: #fff;
+}
+
+.center {
+    text-align: center;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -62,12 +78,39 @@ html {
 body {
     font-family: 'Poppins', sans-serif;
     color: #333;
-    display: flex;
-    flex-direction: column;
     background: linear-gradient(128.16deg, rgba(222, 160, 160, 0.85) -3.04%, rgba(222, 160, 160, 0) 57.36%) no-repeat;
-    /* background: url('img/bg6.svg') no-repeat center center; */
     background-size: auto 600vh;   
+    
 }   
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 1fr);
+    grid-template-rows: repeat(auto-fit, 1fr);
+    /* grid-template-areas: 
+    "header header header header header header header header header header header header"
+    "hero hero hero hero hero hero hero hero hero hero hero hero"
+    "hero hero hero hero hero hero hero hero hero hero hero hero"
+    "hero hero hero hero hero hero hero hero hero hero hero hero"
+    "hero hero hero hero hero hero hero hero hero hero hero hero"
+    "hero hero hero hero hero hero hero hero hero hero hero hero"   
+    "about about about about about about about about about about about about"
+    "about about about about about about about about about about about about"
+    "about about about about about about about about about about about about"
+    "about about about about about about about about about about about about"
+    "about about about about about about about about about about about about"
+    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
+    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
+    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
+    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
+    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
+    "contact contact contact contact contact contact contact contact contact contact contact contact"
+    "contact contact contact contact contact contact contact contact contact contact contact contact"
+    "contact contact contact contact contact contact contact contact contact contact contact contact"
+    "contact contact contact contact contact contact contact contact contact contact contact contact"
+    "footer footer footer footer footer footer footer footer footer footer footer footer" */
+    ;
+}
 
 a {
     text-decoration: none;
@@ -86,9 +129,10 @@ ul {
 
 /* Header and Navigation */
 header {
+    /* grid-area: header; */
     background-color: #333;
     padding: 1rem 0;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
@@ -104,10 +148,7 @@ nav {
 }
 
 nav a {
-    color: #fff;
-    font-weight: 700;
     padding: 0.5rem 1rem;
-    text-transform: uppercase;
     transition: color 0.3s;
 }
 
@@ -117,6 +158,7 @@ nav a:hover {
 
 /* Hero Section */
 .hero {
+    /* grid-area: hero; */
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
     background-size: cover;
     background-position: center;
@@ -126,11 +168,11 @@ nav a:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    scroll-margin-top: 72px;
 }
 
 .hero h1,
 .hero h2 {
-    color: #fff;
     margin: 0.5rem 0;
     transform: translateY(-50%);
 }
@@ -146,10 +188,7 @@ nav a:hover {
 .cta {
     display: inline-block;
     background-color: #333;
-    color: #fff;
     padding: 0.75rem 1.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
     transition: background-color 0.3s;
 }
 
@@ -160,10 +199,10 @@ nav a:hover {
 
 /* About Section */
 #about {
+    /* grid-area: about; */
     display: flex;
     flex-direction: column;
     padding-top: 10rem;
-    text-align: center;
     scroll-margin-top: 72px;
     height: 100vh;  
 }
@@ -179,8 +218,6 @@ nav a:hover {
 }
 
 #about>h3:first-of-type {
-    font-weight: 700;
-    text-transform: uppercase;
     margin-bottom: 20px;
 }
 
@@ -219,7 +256,6 @@ nav a:hover {
 .about_info-card--heading>h3:last-of-type {
     padding: 5px 0;
     margin-left: .75rem;
-    color: #fff;
 }
 
 #about>ul:first-of-type {
@@ -231,6 +267,7 @@ nav a:hover {
 
 /* Portfolio Section */
 #portfolio {
+    /* grid-area: portfolio; */
     padding-top: 5rem;
     /* background-color: rgba(244, 244, 244, 0.3); */
     background-color: rgba(0, 0, 0, 0.3);
@@ -239,14 +276,10 @@ nav a:hover {
 }
 
 #portfolio h2 {
-    text-align: center;
-    font-weight: 700;
-    text-transform: uppercase;
     margin-bottom: 2rem;
-    color: #fff;
 }
 
-.grid-container {
+.portfolio__grid-container {
     display: grid;
     grid-template-columns: repeat(3, minmax(250px, 1fr));
     grid-template-rows: 1fr 1fr;
@@ -275,8 +308,6 @@ nav a:hover {
 }
 
 .project-card h3 {
-    font-weight: 700;
-    text-transform: uppercase;
     margin: 1rem 0;
 }
 
@@ -287,22 +318,19 @@ nav a:hover {
 
 /* Contact Section */
 #contact {
+    /* grid-area: contact; */
     padding-top: 9rem;
     scroll-margin-top: 72px;
     height: 87vh;
 }
 
 #contact h2 {
-    text-align: center;
-    font-weight: 700;
-    text-transform: uppercase;
     margin-bottom: 2rem;
 }
 
 #contact form {
     max-width: 600px;
     margin: 0 auto;
-    display: grid;
     gap: 1rem;
 }
 
@@ -315,12 +343,8 @@ nav a:hover {
 }
 
 #contact button {
-    display: inline-block;
     background-color: #333;
-    color: #fff;
     padding: 0.75rem 1.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
     transition: background-color 0.3s;
 }
 
@@ -330,15 +354,12 @@ nav a:hover {
 
 /* Footer */
 footer {
+    /* grid-area: footer; */
     padding: 1rem 0;
     background-color: #333;
-    text-align: center;
-    color: #fff;
-    margin-top: auto;
 }
 
 footer a {
-    color: #fff;
     margin: 0 0.5rem;
     transition: color 0.3s;
 }
