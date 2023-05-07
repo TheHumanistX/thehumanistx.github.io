@@ -86,36 +86,13 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, 1fr);
-    grid-template-rows: repeat(auto-fit, 1fr);
-    /* grid-template-areas: 
-    "header header header header header header header header header header header header"
-    "hero hero hero hero hero hero hero hero hero hero hero hero"
-    "hero hero hero hero hero hero hero hero hero hero hero hero"
-    "hero hero hero hero hero hero hero hero hero hero hero hero"
-    "hero hero hero hero hero hero hero hero hero hero hero hero"
-    "hero hero hero hero hero hero hero hero hero hero hero hero"   
-    "about about about about about about about about about about about about"
-    "about about about about about about about about about about about about"
-    "about about about about about about about about about about about about"
-    "about about about about about about about about about about about about"
-    "about about about about about about about about about about about about"
-    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
-    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
-    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
-    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
-    "portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio portfolio"
-    "contact contact contact contact contact contact contact contact contact contact contact contact"
-    "contact contact contact contact contact contact contact contact contact contact contact contact"
-    "contact contact contact contact contact contact contact contact contact contact contact contact"
-    "contact contact contact contact contact contact contact contact contact contact contact contact"
-    "footer footer footer footer footer footer footer footer footer footer footer footer" */
-    ;
+    grid-template-rows: repeat(auto-fit, 1fr);   ;
 }
 
 a {
     text-decoration: none;
     color: #333;
-    transition: color 0.3s;
+    transition: color 300ms;
 }
 
 a:hover {
@@ -149,11 +126,18 @@ nav {
 
 nav a {
     padding: 0.5rem 1rem;
-    transition: color 0.3s;
+    transition: color 300ms, transform 300ms, box-shadow 100ms;
+    border-radius: 10px;
+
 }
 
 nav a:hover {
     color: #ccc;
+}
+
+nav a:active {
+    transform: scale(.95);
+    box-shadow: inset 0px 0px 5px #222222;
 }
 
 /* Hero Section */
@@ -189,7 +173,7 @@ nav a:hover {
     display: inline-block;
     background-color: #333;
     padding: 0.75rem 1.5rem;
-    transition: background-color 0.3s;
+    transition: background-color 300ms;
 }
 
 .cta:hover {
@@ -293,7 +277,7 @@ nav a:hover {
     overflow: hidden;
     max-width: 400px;
     height: 300px;
-    transition: transform 0.3s;
+    transition: transform 300ms, background-color 300ms;
     padding: 2rem 1rem;
 }
 
@@ -340,12 +324,19 @@ nav a:hover {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #ccc;
+    outline: none;
+    transition: border 300ms;
+}
+
+#contact input:focus,
+#contact textarea:focus {
+    border: 2px solid rgba(222, 160, 160);
 }
 
 #contact button {
     background-color: #333;
     padding: 0.75rem 1.5rem;
-    transition: background-color 0.3s;
+    transition: background-color 300ms;
 }
 
 #contact button:hover {
@@ -361,9 +352,12 @@ footer {
 
 footer a {
     margin: 0 0.5rem;
-    transition: color 0.3s;
+    transition: color 300ms;
 }
 
 footer a:hover {
     color: #ccc;
 }
+
+
+@media (max-size: )
