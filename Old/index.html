@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <title>Web Design Showcase</title>
+</head>
+
+<body>
+    <div class="grid-container">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="bold uppercase white">Home</a></li>
+                    <li><a href="#about" class="bold uppercase white">About</a></li>
+                    <li><a href="#portfolio" class="bold uppercase white">Portfolio</a></li>
+                    <li><a href="#contact" class="bold uppercase white">Contact</a></li>
+                </ul>
+            </nav>
+            <input type="checkbox" id="nav__toggle" class="nav__toggle">
+            <label for="nav__toggle" class="nav__toggle-label"><span></span></label>
+            <nav class="nav__phone">
+                <ul>
+                    <li><a href="#home" class="bold uppercase white">Home</a></li>
+                    <li><a href="#about" class="bold uppercase white">About</a></li>
+                    <li><a href="#portfolio" class="bold uppercase white">Portfolio</a></li>
+                    <li><a href="#contact" class="bold uppercase white">Contact</a></li>
+                </ul>
+            </nav>
+            <h1>Welcome</h1>
+        </header>
+        <section id="home" class="hero">
+            <div class="home_container">
+                <h1>Web Design Showcase</h1>
+                <h2 class="white">Discover creative and modern web designs</h2>
+                <a href="#portfolio" class="cta bold uppercase white">View Portfolio</a>
+            </div>
+        </section>
+        <section id="about" class="about center">
+            <img src="https://images.pexels.com/photos/6497114/pexels-photo-6497114.jpeg" alt="Profile Headshot"
+                class="headshot">
+            <h2 class="bold uppercase">Jane Doe</h2>
+            <div class="about_info">
+                <div class="about_info-card">
+                    <div class="about_info-card--heading">
+                        <h3>01</h3>
+                        <h3 class="white">Background</h3>
+                    </div>
+                    <div class="about_info-card--text">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipiscing elit varius auctor tellus, massa eu tempus
+                            ante imperdiet aliquet curae velit porta vitae, tristique torquent nisi iaculis magnis ut
+                            rhoncus semper nisl.
+                        </p>
+                    </div>
+                </div>
+                <div class="about_info-card">
+                    <div class="about_info-card--heading">
+                        <h3>02</h3>
+                        <h3 class="white">Current</h3>
+                    </div>
+                    <div class="about_info-card--text">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipiscing elit varius auctor tellus, massa eu tempus
+                            ante imperdiet aliquet curae velit porta vitae, tristique torquent nisi iaculis magnis ut
+                            rhoncus semper nisl.
+                        </p>
+                    </div>
+                </div>
+                <div class="about_info-card">
+                    <div class="about_info-card--heading">
+                        <h3>03</h3>
+                        <h3 class="white">Outlook</h3>
+                    </div>
+                    <div class="about_info-card--text">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipiscing elit varius auctor tellus, massa eu tempus
+                            ante imperdiet aliquet curae velit porta vitae, tristique torquent nisi iaculis magnis ut
+                            rhoncus semper nisl.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-spacer-column"></div>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">LinkedIn</a></li>
+            </ul>
+        </section>
+        <section id="portfolio" class="portfolio">
+            <h2 class="bold uppercase white center">Portfolio</h2>
+            <div class="portfolio__grid-container">
+                <div class="project-card">
+                    <img src="https://www.geeksforgeeks.org/wp-content/uploads/html.png" alt="Project 1">
+                    <h3 class="bold uppercase">Project 1</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="project-card">
+                    <img src="https://www.geeksforgeeks.org/wp-content/uploads/CSS.png" alt="Project 2">
+                    <h3 class="bold uppercase">Project 2</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="project-card">
+                    <img src="https://www.geeksforgeeks.org/wp-content/uploads/javascript.png" alt="Project 3">
+                    <h3 class="bold uppercase">Project 3</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="project-card">
+                    <img src="https://www.geeksforgeeks.org/wp-content/uploads/html.png" alt="Project 4">
+                    <h3 class="bold uppercase">Project 4</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="project-card">
+                    <img src="https://www.geeksforgeeks.org/wp-content/uploads/CSS.png" alt="Project 5">
+                    <h3 class="bold uppercase">Project 5</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="project-card">
+                    <img src="https://www.geeksforgeeks.org/wp-content/uploads/javascript.png" alt="Project 6">
+                    <h3 class="bold uppercase">Project 6</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+
+        </section>
+        <section id="contact" class="contact">
+            <h2 class="bold uppercase center">Contact</h2>
+            <form action="/form_submit" method="POST">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+                <button type="submit" class="bold uppercase white">Send</button>
+            </form>
+        </section>
+        <footer class="center">
+            <a href="#" class="white">Terms of Use</a>
+            <a href="#" class="white">Privacy Policy</a>
+            <a href="#" class="white">Contact</a>
+        </footer>
+    </div>
+</body>
+
+</html>
