@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="styles.css" rel="stylesheet">
     <title>Web Design Showcase</title>
 </head>
 
@@ -13,11 +11,24 @@
     <div class="grid-container">
         <header>
             <nav>
-                <a href="#home" class="bold uppercase white">Home</a>
-                <a href="#about" class="bold uppercase white">About</a>
-                <a href="#portfolio" class="bold uppercase white">Portfolio</a>
-                <a href="#contact" class="bold uppercase white">Contact</a>
+                <ul>
+                    <li><a href="#home" class="bold uppercase white">Home</a></li>
+                    <li><a href="#about" class="bold uppercase white">About</a></li>
+                    <li><a href="#portfolio" class="bold uppercase white">Portfolio</a></li>
+                    <li><a href="#contact" class="bold uppercase white">Contact</a></li>
+                </ul>
             </nav>
+            <input type="checkbox" id="nav__toggle" class="nav__toggle">
+            <label for="nav__toggle" class="nav__toggle-label"><span></span></label>
+            <nav class="nav__phone">
+                <ul>
+                    <li><a href="#home" class="bold uppercase white">Home</a></li>
+                    <li><a href="#about" class="bold uppercase white">About</a></li>
+                    <li><a href="#portfolio" class="bold uppercase white">Portfolio</a></li>
+                    <li><a href="#contact" class="bold uppercase white">Contact</a></li>
+                </ul>
+            </nav>
+            <h1>Welcome</h1>
         </header>
         <section id="home" class="hero">
             <div class="home_container">
@@ -26,9 +37,10 @@
                 <a href="#portfolio" class="cta bold uppercase white">View Portfolio</a>
             </div>
         </section>
-        <section id="about" class="center">
-            <img src="https://media.istockphoto.com/id/846183008/vector/default-avatar-profile-icon-grey-photo-placeholder.jpg?s=612x612&w=0&k=20&c=vPUM91Y-Hf6YLpNl6lnaxtkp88cuqccw4ayKFzshJE4=" alt="Profile Headshot" class="headshot">
-            <h3 class="bold uppercase">Jane Doe</h3>
+        <section id="about" class="about center">
+            <img src="https://images.pexels.com/photos/6497114/pexels-photo-6497114.jpeg" alt="Profile Headshot"
+                class="headshot">
+            <h2 class="bold uppercase">Jane Doe</h2>
             <div class="about_info">
                 <div class="about_info-card">
                     <div class="about_info-card--heading">
@@ -70,13 +82,14 @@
                     </div>
                 </div>
             </div>
+            <div class="flex-spacer-column"></div>
             <ul>
                 <li><a href="#">Facebook</a></li>
                 <li><a href="#">Twitter</a></li>
                 <li><a href="#">LinkedIn</a></li>
             </ul>
         </section>
-        <section id="portfolio">
+        <section id="portfolio" class="portfolio">
             <h2 class="bold uppercase white center">Portfolio</h2>
             <div class="portfolio__grid-container">
                 <div class="project-card">
@@ -110,10 +123,11 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
             </div>
+
         </section>
-        <section id="contact">
+        <section id="contact" class="contact">
             <h2 class="bold uppercase center">Contact</h2>
-            <form>
+            <form action="/form_submit" method="POST">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name">
                 <label for="email">Email</label>
