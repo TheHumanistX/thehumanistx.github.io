@@ -92,101 +92,604 @@ We decided to layout the project with the following components (at least):
 
 9. `AddButton`: Since you find yourself using the round plus button in multiple places (Lists and Tasks components), you can create a reusable AddButton component. This component can handle a click event to open relevant dialogs (add a new task list or add a new task).
 
-10. `ProgressBar`: Creating this component makes sense in this case, as you want to display it in two different places - within each `TaskList` card and at the bottom of the `Tasks` component. By creating a separate `ProgressBar` component, you can maintain consistent styling and behavior across both instances, which can improve code maintainability and help adhere to the DRY (Don't Repeat Yourself) principle.
+10. `ProgressBar` component: Creating this component makes sense in this case, as you want to display it in two different places - within each `TaskList` card and at the bottom of the `Tasks` component. By creating a separate `ProgressBar` component, you can maintain consistent styling and behavior across both instances, which can improve code maintainability and help adhere to the DRY (Don't Repeat Yourself) principle.
+
+11. `SmallButton` component: The small modal menu that pops up when the vertical three dot button on a single task or tasklist is clicked. When it is called it displays "Edit", "Delete"
 
 —
 
-We have created the react app already as well as the App.js. We have a components folder which holds AddButton.js, ProgressBar.js, TestComponent.js (for testing components as we make them).
+We have created the react app already as well as the App.js. 
 
-The code for AddButton.js is:
 
-```
-import React from 'react'
-import IconButton from '@mui/material/IconButton';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { useTheme } from '@mui/material/styles';
+We have a components folder which holds the following:
 
-const AddButton = ({ onClick, size = 'large', color, style }) => {
-  const theme = useTheme();
-  const buttonColor = color || theme.palette.buttonColor.main;
+* AddButton.js
+  * The code for AddButton.js:
+    ```javascript
+    import React from 'react'
+    import IconButton from '@mui/material/IconButton';
+    import AddCircleIcon from '@mui/icons-material/AddCircle';
+    import { useTheme } from '@mui/material/styles';
 
-  return (
-    <IconButton
-      onClick={onClick}
-      style={{ color: buttonColor, ...style }}
-    >
-      <AddCircleIcon 
-      onClick={onClick}
-      style={{ color: buttonColor, ...style }}
-      fontSize={size}
-      />
-    </IconButton>
-  );
-};
+    const AddButton = ({ onClick, size = 'large', style }) => {
+    const theme = useTheme();
 
-export default AddButton;
-```
+      return (
+        <IconButton
+          onClick={onClick}
+        >
+          <AddCircleIcon 
+          onClick={onClick}
+          sx={{ color: 'buttonColor.main', ...style }}
+          fontSize={size}
+          />
+        </IconButton>
+      );
+    };
 
-The code for ProgressBar is:
+    export default AddButton;
 
-```
-import React from 'react';
-import { LinearProgress } from '@mui/material';
+    ```
+* HeaderBar.js
+    * The code for HeaderBar.js:  
+    ```javascript
+    import React from 'react';
+    import { Typography, Box } from '@mui/material';
+    import { format, getMonth } from 'date-fns';
 
-const ProgressBar = ({ completedTasks=5, totalTasks=9 }) => {
-  // Calculate the progress percentage
-  const progress = (completedTasks / totalTasks) * 100;
+    const HeaderBar = ({ currentTaskListTitle, tasksCompleted, totalTasks }) => {
+        const currentMonth = getMonth(new Date());
+        // We don't want a period after May because it won't abbreviate may since it is already 3 letters long.
+        const currentDate = currentMonth === 4 ? format(new Date(), 'MMM do, yyyy') : format(new Date(), 'MMM. do, yyyy');
 
-  return (
-    <LinearProgress
-      variant="determinate"
-      value={progress}
-      sx={{
-        height: '10px', // Adjust height
-        width: '50%', // Adjust width
-        borderRadius: '5px', // Round the ends 
-        border: '1px solid', // Add a border
-        borderColor: 'cardBackgroundColor.alternate', // Adjust the border color   
-        bgcolor: 'cardBackgroundColor.main', // Adjust the background color
-        '& .MuiLinearProgress-bar': {
-          bgcolor: 'backgroundColor.default', // Adjust the filled bar color
+        return (
+            <Box display="flex" justifyContent="space-between" alignItems="center" p={2} width='680px' height='50px' padding="0px 30px" borderRadius='25px'     bgcolor='cardBackgroundColor.main' margin='20px 0'>
+                <Typography variant="h6">{`List: ${currentTaskListTitle}`}</Typography>
+                <Typography variant="h6">{`Tasks Completed: ${tasksCompleted} of ${totalTasks}`}</Typography>
+                <Typography variant="h6">{`Date: ${currentDate}`}</Typography>
+            </Box>
+        );
+    };
+
+export default HeaderBar;
+    ```
+* index.js (for exporting all the components)
+    * The code for index.js:  
+    ```javascript
+    export { default as AddButton } from './AddButton';
+    export { default as TestComponent } from './TestComponent';
+    export { default as ProgressBar } from './ProgressBar';
+    export { default as HeaderBar } from './HeaderBar';
+    export { default as TaskList } from './TaskList';
+    export { default as Task } from './Task';
+    export { default as SmallMenu } from './SmallMenu';
+    export { default as Lists } from './Lists';
+    export { default as Tasks } from './Tasks';
+    export { default as TaskDetails } from './TaskDetails';
+    ```
+* Lists.js
+    * The code for Lists.js:  
+    ```javascript
+    import React from 'react';
+    import { Box, Typography, IconButton, Card, CardContent } from '@mui/material';
+    import { AddButton, TaskList } from './';
+
+    const Lists = () => {
+        const taskLists = [
+            { id: 1, title: 'Errands', tasksCompleted: 3, totalTasks: 8, completed: false },
+            { id: 2, title: 'Yardwork', tasksCompleted: 1, totalTasks: 5, completed: true },
+            { id: 3, title: 'Home Chores', tasksCompleted: 5, totalTasks: 10, completed: false },
+        ];
+
+        console.log(taskLists);
+        console.log(taskLists.length);
+        console.log(taskLists[0]);
+        console.log(taskLists[1]);
+        console.log(taskLists[2]);
+        console.log(taskLists[0].id);
+
+        const taskListsLength = taskLists.length;
+
+        const handleAddList = () => {
+            // Handle adding a new task list
+            console.log('Add a new task list');
+        };
+
+        return (
+            <Box
+                width="410px"
+                height="1155px"
+                bgcolor="cardBackgroundColor.main"
+                p={2}
+                display="flex"
+                flexDirection="column"
+                borderRadius="22px"
+            >
+                <Typography variant="h5" mb={2}>
+                    Lists ({taskListsLength})
+                </Typography>
+
+                {taskLists.map((taskList) => {
+                console.log('After Map taskList: ', taskList)
+                   return <TaskList key={taskList.id} taskList={taskList} />
+                })}
+
+                <Card variant="plain" onClick={handleAddList} sx={{ backgroundColor: 'cardBackgroundColor.main', mt: 'auto', ml: 'auto' }}>
+                    <CardContent>
+                        <AddButton />
+                    </CardContent>
+                </Card>
+            </Box>
+        );
+    };
+
+    export default Lists;
+
+    ```
+* ProgressBar.js
+    * The code for ProgressBar.js:  
+    ```javascript
+    import React from 'react';
+    import { LinearProgress } from '@mui/material';
+
+    const ProgressBar = ({ progress, width, margin, padding }) => {
+
+      return (
+        <LinearProgress
+          variant="determinate"
+          value={progress}
+          sx={{
+            height: '10px', // Adjust height
+            width: width || '50%', // Adjust width
+            margin: margin || '0px', // Adjust margin
+            padding: padding || '0px', // Adjust padding
+            borderRadius: '25px', // Round the ends 
+            border: '1px solid', // Add a border
+            borderColor: 'cardBackgroundColor.alternate', // Adjust the border color   
+            bgcolor: 'cardBackgroundColor.main', // Adjust the background color
+            '& .MuiLinearProgress-bar': {
+              bgcolor: 'backgroundColor.default', // Adjust the filled bar color
+            },
+          }}
+        />
+      );
+    };
+
+    export default ProgressBar;
+    ```
+* SmallMenu.js
+    * The code for SmallMenu.js:  
+    ```javascript
+    import React from 'react'
+    import { Menu, MenuItem } from '@mui/material'
+
+    const SmallMenu = ({ anchorEl, handleClose }) => {
+        return (
+            <div>
+                <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={handleClose}>Edit</MenuItem>
+                    <MenuItem onClick={handleClose}>Delete</MenuItem>
+                </Menu>
+            </div>
+        )
+    }
+
+    export default SmallMenu
+
+    ```
+* Task.js
+    * The code for Task.js:  
+    ```javascript
+    import React, { useState } from 'react';
+    import { Box, Typography, IconButton, Menu, MenuItem } from '@mui/material';
+    import MoreVertIcon from '@mui/icons-material/MoreVert';
+    import { SmallMenu } from './';
+
+    const Task = ({ task }) => {
+        const [anchorEl, setAnchorEl] = useState(null);
+        const { id, title, completed } = task;
+
+        const backgroundColor = () => {
+            if (id % 2 === 0) {
+                console.log('Even', id % 2)
+                return 'cardBackgroundColor.main';
+            } else {
+                return 'cardBackgroundColor.alternate';
+            }
+        };
+
+        const handleClick = (event) => {
+            setAnchorEl(event.currentTarget);
+        };
+
+        const handleClose = () => {
+            setAnchorEl(null);
+        };
+
+        return (
+            <div>
+                <Box
+                    display="flex"
+                    alignItems='center'
+                    justifyContent='space-between'
+                    boxSizing='border-box'
+                    padding='0 20px'
+                    width='600px'
+                    height='60px'
+                    backgroundColor={backgroundColor()}
+                    borderRadius='12px'
+                    border='2px solid'
+                    borderColor='cardBackgroundColor.alternate'
+                >
+                    <Typography 
+                    variant="h6"
+                    sx={{
+                        textDecoration: completed ? "line-through" : "none",
+                        color: completed ? "textColor.completed" : "textColor.primary",
+                    }}
+                    >{title}
+                    </Typography>
+                    <IconButton onClick={handleClick}>
+                        <MoreVertIcon />
+                    </IconButton>
+                </Box>
+                <SmallMenu anchorEl={anchorEl} handleClose={handleClose} />
+                <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={handleClose}>Edit</MenuItem>
+                    <MenuItem onClick={handleClose}>Delete</MenuItem>
+                </Menu>
+            </div>
+        );
+    }
+
+    export default Task;
+
+    ```
+* TaskDetails.js
+    * The code for TaskDetails.js: 
+    ```javascript
+    import React, { useState } from 'react';
+    import {
+        Box,
+        Typography,
+        IconButton,
+        TextField,
+        TextareaAutosize,
+        InputAdornment,
+        Card,
+        Divider
+    } from '@mui/material';
+    import EditNoteIcon from '@mui/icons-material/EditNote';
+    import CheckIcon from '@mui/icons-material/Check';
+    import ClearIcon from '@mui/icons-material/Clear';
+    import DeleteIcon from '@mui/icons-material/Delete';
+
+    import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+    import { format } from 'date-fns';
+
+    const TaskDetails = ({ task, onEdit, onDelete, onConfirm }) => {
+        const [editMode, setEditMode] = useState(false);
+        const [title, setTitle] = useState(task.title);
+        const [dueDate, setDueDate] = useState(task.dueDate);
+        const [details, setDetails] = useState(task.details);
+        console.log('task.created: ', task.created)
+        const createdOn = format(new Date(task.created), 'MM/dd/yyyy');
+        const dueOn = format(new Date(task.dueDate), 'MM/dd/yyyy');
+        console.log('createdOn: ', createdOn);
+        const currentDate = format(new Date(), 'MM/dd/yyyy');
+
+        const handleEdit = () => {
+            setEditMode(true);
+        };
+
+        const handleCancel = () => {
+            setEditMode(false);
+            setTitle(task.title);
+            setDueDate(task.dueDate);
+            setDetails(task.details);
+        };
+
+        const handleConfirm = () => {
+            const updatedTask = {
+                ...task,
+                title,
+                dueDate,
+                details,
+            };
+            onConfirm(updatedTask);
+            setEditMode(false);
+        };
+
+        const handleDelete = () => {
+            onDelete(task.id);
+        };
+
+        return (
+            <Box
+                width="680px"
+                height="1060px"
+                bgcolor="cardBackgroundColor.main"
+                p={2}
+                display="flex"
+                flexDirection="column"
+                borderRadius='22px'
+            >
+                {!editMode ? (
+                    <>  
+                        <Box display="flex" justifyContent="space-between" padding={5} boxSizing='border-box'>
+                        <Typography variant="h6" mb={1}>
+                            Created: {createdOn}
+                        </Typography>
+                        {task.dueDate && (
+                            <Typography variant="h6" mb={1}>
+                                Due: {dueOn}
+                            </Typography>
+                        )}
+                        </Box>
+                        <Divider variant="middle" />
+                        <Typography variant="h2" mb={2} mt={4} textAlign='center'>
+                            {task.title}
+                        </Typography>
+                        <Typography variant="h5" 
+                        sx={{ ml:'40px' }}
+                        >Information</Typography>
+                        <TextareaAutosize
+                            rowsMin={15}
+                            value={task.details}
+                            disabled
+                            style={{ width: '600px', height: '685px', borderRadius: '12px', borderColor: 'backgroundColor.default', resize: 'none', margin: 'auto', padding:    '12px' }}
+                        />
+                        <Card variant='plain' sx={{ mt: 'auto', ml: 'auto', backgroundColor: 'cardBackgroundColor.main' }}>
+                        <IconButton onClick={handleEdit}>
+                            <EditNoteIcon 
+                            sx={{ color: 'buttonColor.main', width:45, height:45 }}
+
+                             />
+                        </IconButton>
+                        </Card>
+                    </>
+                ) : (
+                    <>
+                        <Typography variant="subtitle1" mb={1}>
+                            Created: {currentDate}
+                        </Typography>
+                        <hr />
+                        <TextareaAutosize rowsMin={10} />
+                        <TextField
+                            label="Task Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            fullWidth
+                            margin="normal"
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton onClick={handleCancel} size="small">
+                                            <ClearIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                        <DateCalendar
+                            label="Due Date"
+                            onChange={(newValue) => setDueDate(newValue)}
+                            renderInput={(params) => <TextField {...params} />}
+                            fullWidth
+                            margin="normal"
+                        />
+                        <TextareaAutosize
+                            rowsMin={15}
+                            value={details}
+                            onChange={(e) => setDetails(e.target.value)}
+                            style={{ width: '600px' }}
+                        />
+                        <Box display="flex" justifyContent="space-between" mt={2}>
+                            <IconButton onClick={handleConfirm} size="small">
+                                <CheckIcon />
+                            </IconButton>
+                            <IconButton onClick={handleDelete} size="small">
+                                <DeleteIcon />
+                            </IconButton>
+                        </Box>
+                    </>
+                )}
+            </Box>
+        );
+    };
+
+    export default TaskDetails;
+    ```
+* TaskList.js
+    * The code for TaskList.js:  
+    ```javascript
+    import React from 'react';
+    import { Box, Typography, IconButton } from '@mui/material';
+    import MoreVertIcon from '@mui/icons-material/MoreVert';
+    import { ProgressBar, SmallMenu } from './';
+
+    const TaskList = ({ taskList }) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+        console.log('TaskList: ', taskList)
+        const { id, title, tasksCompleted, totalTasks } = taskList;
+        const progress = (tasksCompleted / totalTasks) * 100;
+
+        // Create a function that will set the background color of the Box dependent on wheter the 'id' is even or odd
+            const backgroundColor = () => {
+                if (id % 2 === 0) {
+                    console.log('Even', id % 2)
+                    return 'cardBackgroundColor.main';
+                } else {
+                    return 'cardBackgroundColor.alternate';
+                }
+            };
+
+        const handleClick = (event) => {
+            setAnchorEl(event.currentTarget);
+        };
+
+        const handleClose = () => { setAnchorEl(null); };
+
+        return (
+            <div>
+
+                <Box
+                    boxSizing='border-box'
+                    border='2px solid'
+                    padding='10px'
+                    borderColor='cardBackgroundColor.alternate'
+                    backgroundColor= {backgroundColor()}
+                    height='115px'
+                    width='380px'
+                    borderRadius='12px'
+                >
+                    <Box display="flex" justifyContent="space-between" height='60%'>
+                        <Typography variant="h6">{title}</Typography>
+                        <IconButton onClick={handleClick}>
+                            <MoreVertIcon style={{ position: "absolute", top: "60%" }} />
+                        </IconButton>
+                    </Box>
+                    <Typography variant="body2">{`${tasksCompleted} of ${totalTasks} Tasks Complete`}</Typography>
+                    <ProgressBar margin='10px 0 0 0' width='80%' progress={progress} />
+                </Box>
+                <SmallMenu anchorEl={anchorEl} handleClose={handleClose} />
+            </div>
+
+
+        );
+    };
+
+    export default TaskList;
+    ```
+* Tasks.js
+    * The code for Tasks.js:  
+    ```javascript
+    import React from 'react';
+    import { Box, Typography, IconButton, Card, CardContent } from '@mui/material';
+    import { Task, AddButton } from './';
+
+    const Tasks = ({ taskList }) => {
+        const tasks = [
+            { id: 1, title: 'Task 1', completed: false },
+            { id: 2, title: 'Task 2', completed: true },
+            { id: 3, title: 'Task 3', completed: false },
+        ];
+        const tasksCompleted = tasks.filter((task) => task.completed);
+        console.log('tasks completed: ', tasksCompleted)
+        const tasksOutstanding = tasks.filter((task) => !task.completed);
+        console.log('tasks outstanding: ', tasksOutstanding)
+
+        const handleAddTask = () => {
+            // Handle adding a new task
+            console.log('Add a new task');
+        };
+
+        return (
+            <Box
+                width="680px"
+                height="1060px"
+                bgcolor="cardBackgroundColor.main"
+                p={2}
+                // ml={2}
+                display="flex"
+                flexDirection="column"
+                borderRadius='22px'
+            >
+                <Typography variant="h5" mb={2}>
+                    {taskList.title} Tasks
+                </Typography>
+                <Typography variant="h6" mb={2}>
+                Outstanding ({tasksOutstanding.length}): 
+                </Typography>
+                {tasks.map((task) => (
+                    <Task key={task.id} task={task} />
+                ))}
+
+                <Card variant="plain" onClick={handleAddTask} sx={{ backgroundColor: 'cardBackgroundColor.main', mt: 'auto', ml: 'auto' }}>
+                    <CardContent>
+                        <AddButton />
+                    </CardContent>
+                </Card>
+            </Box>
+        );
+    };
+
+    export default Tasks;
+
+    ```
+* TestComponent.js (for testing components as we make them).
+    * The code for TestComponent.js:  
+    ```javascript
+    import React from 'react'
+    import { Box } from '@mui/material'
+    import { format } from 'date-fns';
+    import { AddButton, ProgressBar, HeaderBar, TaskList, Task, Lists, Tasks, TaskDetails } from './'
+    const TestComponent = () => {
+        const taskList1 = { id: 1, title: 'Errands', tasksCompleted: 3, totalTasks: 12 }
+        const taskList2 = { id: 2, title: 'Yardwork', tasksCompleted: 7, totalTasks: 10 }
+        const task1 = { id: 1, title: 'Go by bank', completed: false, dueDate: format(new Date('2023-06-26'), 'MM/dd/yyyy').toString(), details: 'Need to run by the bank   and make a deposit. Also need to ask about opening a new business savings account.', created: format(new Date('2023-05-23'), 'MM/dd/yyyy').toString()}
+        const task2 = { id: 2, title: 'Pay electric bill', completed: true }
+
+        const progress = (taskList1.tasksCompleted / taskList1.totalTasks) * 100
+        return (
+            <Box bgcolor='backgroundColor.default'>
+                <AddButton />
+                <ProgressBar progress={progress} />
+                <HeaderBar currentTaskListTitle='Errands' tasksCompleted='7' totalTasks='9'/>
+                <TaskList key={taskList1.id} taskList={taskList1} />
+                <TaskList key={taskList2.id} taskList={taskList2} />
+                <Task task={task1} />
+                <Task task={task2} />
+                <Lists />
+                <Tasks taskList = {taskList1}/>
+                <TaskDetails task={task1}/>
+            </Box>
+        )
+    }
+
+    export default TestComponent
+
+    ```
+In the 'theme' folder we have:
+
+* theme.js
+    * The code for theme.js:
+    ```javascript
+    import { createTheme } from '@mui/material/styles';
+
+    const theme = createTheme({
+      palette: {
+        backgroundColor: {
+          default: '#52A7CC',
         },
-      }}
-    />
-  );
-};
+        textColor: {
+          primary: '#000000',
+          completed: 'rgb(169,169,169, 0.5)',
+        },
+        buttonColor: {
+          main: '#A5D4DC',
+        },
+        cardBackgroundColor: {
+          main: '#F2F4F8',
+          alternate: '#D9D9D9',
+        },
+      },
+      typography: {
+        fontFamily: '"Nunito", sans-serif',
+      },
+    });
 
-export default ProgressBar;
-```
+    export default theme;
+    ```
 
-We have also created theme.js in the ‘theme’ folder. The code, so far, in theme.js is:
-
-```
-import { createTheme } from '@mui/material/styles';
-
-const theme = createTheme({
-  palette: {
-    backgroundColor: {
-      default: '#52A7CC',
-    },
-    textColor: {
-      primary: '#000000',
-    },
-    buttonColor: {
-      main: '#A5D4DC',
-    },
-    cardBackgroundColor: {
-      main: '#F2F4F8',
-      alternate: '#D9D9D9',
-    },
-  },
-  typography: {
-    fontFamily: '"Nunito", sans-serif',
-  },
-});
-
-export default theme;
-```
 
 Please review everything I have typed here a few times.  Ask me any questions about anything that is not clear. Don't just assume you can figure out what I meant if I wasnt clear, please ask me.  After that, let me know if you are ready to move forward from where we stopped (at the progress bar).
 
